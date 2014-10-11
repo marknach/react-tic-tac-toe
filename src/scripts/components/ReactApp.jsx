@@ -15,37 +15,24 @@ require('../../styles/main.css');
 
 var imageURL = require('../../images/yeoman.png');
 
-var TodoList = React.createClass({
+var TicTacToeBoard = React.createClass({
 	render: function() {
-		var createItem = function(itemText) {
-			return <li>{itemText}</li>;
+		var drawRow  = function(val) {
+			return <tr><td>{val[0]}</td><td>{val[1]}</td><td>{val[2]}</td></tr>;
 		}
-		return <ul>{this.props.items.map(createItem)}</ul>;
+		return (<table>{this.props.board.map(drawRow)}</table>);
   }
 });
 
 var ReactApp = React.createClass({
 	getInitialState: function() {
-		return {items: [], text: ''};	
-	},
-	onChange: function(e) {
-		this.setState({text:e.target.value});
-	},
-	handleSubmit: function(e) {
-		e.preventDefault();
-		var nextItems = this.state.items.concat([this.state.text]);
-		var nextText = '';
-		this.setState({items: nextItems, text: nextText});
+		return {board: [["1","2","3"], ["4","5","6"], ["7","8","9"]], text: ''};	
 	},
   render: function() {
     return (
       <div className='main'>
-				<h3>TODO</h3>
-				<form onSubmit={this.handleSubmit}>
-					<input onChange={this.onChange} value={this.state.text}/>
-					<button>{'Add #' + (this.state.items.length + 1)}</button>
-				</form>
-				<TodoList items={this.state.items} />
+				<h3>Tic Tac Toe!</h3>
+				<TicTacToeBoard board={this.state.board} />
       </div>
     );
   }
