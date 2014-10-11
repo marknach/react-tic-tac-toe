@@ -7,7 +7,9 @@ html, body {
 /* main */
 
 .main {
-  width: 100%;
+  width: 400px;
+	margin: 25px auto;
+	padding: 0 15px;
   height: 100%;
   background: #fff;
   color: #000;
@@ -17,6 +19,11 @@ td {
 	padding: 5px;
 	border-right: solid 1px #000;
 	border-bottom: solid 1px #000;
+	text-align: center;
+}
+
+tr {
+	margin: 15px;
 }
 
 td:last-child {
@@ -28,7 +35,14 @@ tr:last-child td {
 }
 
 table {
-	margin: 5px;
+	margin: 25px auto;
+	width: 400px;
+	height: 100%;
+}
+
+h3 {
+	padding: 5px;
+	text-align: center;
 }
 
 #content {
