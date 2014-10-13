@@ -13,12 +13,19 @@ var React = require('react/addons');
 require('../../styles/normalize.css');
 require('../../styles/main.css');
 
-var imageURL = require('../../images/yeoman.png');
+var TicTacToeCell = React.createClass({
+	render: function() {
+		return (<td onClick={this.handleClick}>{this.props.value}</td>);
+	},
+	handleClick: function(e) {
+	  console.log(this.props.value);	
+	}
+});
 
 var TicTacToeBoard = React.createClass({
 	render: function() {
 		var drawRow  = function(val) {
-			return <tr><td>{val[0]}</td><td>{val[1]}</td><td>{val[2]}</td></tr>;
+			return <tr><TicTacToeCell value={val[0]} /><TicTacToeCell value={val[1]} /><TicTacToeCell value={val[2]} /></tr>;
 		}
 		return (<table>{this.props.board.map(drawRow)}</table>);
   }
