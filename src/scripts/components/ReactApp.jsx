@@ -13,36 +13,42 @@ var React = require('react/addons');
 require('../../styles/normalize.css');
 require('../../styles/main.css');
 
+var curPlayer = "X";
+
 var TicTacToeCell = React.createClass({
 	render: function() {
-		return (<td onClick={this.handleClick}>{this.props.value}</td>);
+		return (<span className="cell" onClick={this.handleClick}>{this.props.value}</span>);
 	},
-	handleClick: function(e) {
-	  console.log(this.props.value);	
+	handleClick: function() {
+		this.props.cellClicked(this.props.key, this.props.player);
 	}
 });
 
-var TicTacToeBoard = React.createClass({
-	render: function() {
-		var drawRow  = function(val) {
-			return <tr><TicTacToeCell value={val[0]} /><TicTacToeCell value={val[1]} /><TicTacToeCell value={val[2]} /></tr>;
-		}
-		return (<table>{this.props.board.map(drawRow)}</table>);
-  }
-});
-
-var ReactApp = React.createClass({
+var Board = React.createClass({
 	getInitialState: function() {
-		return {board: [["1","2","3"], ["4","5","6"], ["7","8","9"]], text: ''};	
+		return { board:  [
+								" "," "," ",
+								" "," "," ",
+								" "," "," ",
+							], player: "X"};	
 	},
+	cellClicked: function(position, player) {
+		var board = this.state.board;
+		if ( board[position] != " " ) { return; }
+		board[position] = player;
+		this.setState({board: board, player: player === "X" ? "O" : "X"});
+  },
   render: function() {
     return (
       <div className='main'>
-				<h3>Tic Tac Toe!</h3>
-				<TicTacToeBoard board={this.state.board} />
+				{
+					this.state.board.map(function(cell, pos) {
+							return <TicTacToeCell value={cell} key={pos} player={this.state.player} cellClicked={this.cellClicked} />;
+					}, this)
+				}
       </div>
     );
   }
 });
 
-module.exports = ReactApp;
+module.exports = Board;
