@@ -30,7 +30,7 @@ var Board = React.createClass({
 								"","","",
 								"","","",
 								"","","",
-							], player: "X"};	
+							], player: "X", winner: "none"};	
 	},
 	getWinner: function() {
 		var b = this.state.board;
@@ -47,21 +47,17 @@ var Board = React.createClass({
 							|| match(b[2], b[4], b[6]);
 		return (winner && winner.input[0]) || (b.join('').length < 9 ? "none" : "draw");
 	},
-	gameOver: function(winner) {
-		if (winner == "none") { return; }
-		if (winner == "draw") { alert("DRAW"); }
-		else { alert("Player " + winner + " wins!"); }
-  },
 	cellClicked: function(position, player) {
 		var board = this.state.board;
-		if ( board[position] != "" ) { return; }
+		if ( board[position] != ""  || this.state.winner !== "none") { return; }
 		board[position] = player;
-		this.setState({board: board, player: player === "X" ? "O" : "X"});
-	  this.gameOver(this.getWinner());	
+		this.setState({board: board, player: player === "X" ? "O" : "X", winner: this.getWinner()});
   },
   render: function() {
+		var classes = 'main';
+		if ( this.state.winner !== "none") { classes += ' fade-enter'; }
     return (
-      <div className='main'>
+      <div className={classes}>
 				{
 					this.state.board.map(function(cell, pos) {
 							return <TicTacToeCell value={cell} key={pos} player={this.state.player} cellClicked={this.cellClicked} />;

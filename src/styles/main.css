@@ -17,6 +17,9 @@ html, body {
 	border-radius: 6px;
 }
 
+.faded {
+}
+
 span {
 	display: block;
 }
@@ -45,7 +48,7 @@ h3 {
 /* transitions */
 
 .fade-enter {
-  opacity: 0.01;
+  opacity: 0.50;
   transition: opacity .5s ease-in;
 }
 
