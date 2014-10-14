@@ -5,6 +5,11 @@ html, body {
 }
 
 /* main */
+#content {
+  width: 330px;
+  height: 330px;
+  margin: 15px auto;
+}
 
 .main {
   width: 300px;
@@ -15,6 +20,34 @@ html, body {
 	display: flex;
 	flex-wrap: wrap;
 	border-radius: 6px;
+}
+
+.menu-show {
+	z-index: 1;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+	cursor: pointer;
+	display: block;
+	background: #6b878f;
+	border-radius: 6px;
+	padding: 10px;
+  font-size: 2em;
+  opacity: 1.0;
+  transition: opacity .5s ease-in;
+}
+
+.menu-show:hover {
+  background: #459cb5;
+}
+
+.menu-hidden {
+	z-index: 1;
+	position: absolute;
+	top: 25%;
+	left: 45%;
+	display: none;
 }
 
 span {
@@ -45,7 +78,7 @@ h3 {
 /* transitions */
 
 .fade-enter {
-  opacity: 0.01;
+  opacity: 0.50;
   transition: opacity .5s ease-in;
 }
 
