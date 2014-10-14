@@ -27,16 +27,37 @@ var TicTacToeCell = React.createClass({
 var Board = React.createClass({
 	getInitialState: function() {
 		return { board:  [
-								" "," "," ",
-								" "," "," ",
-								" "," "," ",
+								"","","",
+								"","","",
+								"","","",
 							], player: "X"};	
 	},
+	getWinner: function() {
+		var b = this.state.board;
+		var match = function(x, y, z) {
+      return (x + y + z).match(/^(XXX|OOO)$/);
+		};
+		var winner = match(b[0], b[1], b[2])
+							|| match(b[3], b[4], b[5])  
+							|| match(b[6], b[7], b[8])  
+							|| match(b[0], b[3], b[6])  
+							|| match(b[1], b[4], b[7])  
+							|| match(b[2], b[5], b[8])  
+							|| match(b[0], b[4], b[8])  
+							|| match(b[2], b[4], b[6]);
+		return (winner && winner.input[0]) || (b.join('').length < 9 ? "none" : "draw");
+	},
+	gameOver: function(winner) {
+		if (winner == "none") { return; }
+		if (winner == "draw") { alert("DRAW"); }
+		else { alert("Player " + winner + " wins!"); }
+  },
 	cellClicked: function(position, player) {
 		var board = this.state.board;
-		if ( board[position] != " " ) { return; }
+		if ( board[position] != "" ) { return; }
 		board[position] = player;
 		this.setState({board: board, player: player === "X" ? "O" : "X"});
+	  this.gameOver(this.getWinner());	
   },
   render: function() {
     return (
